@@ -14,9 +14,9 @@
 #define ADC_PIN         17    // A0 no ESP8266 = GPIO17 internamente
 
 // ── Circuito de amplificação (LM358) ─────────────────────────────────────────
-// Ganho = 1 + Rf/Rg ≈ 24  (Rf=23kΩ, Rg=1kΩ)
-// Faixa de saída: 0–1 V para 0–400°C (considerando cold junction 25°C)
-#define AMP_GAIN        24.0f
+// Ganho = 1 + Rf/Rg = 23  (Rf=22kΩ, Rg=1kΩ)
+// Faixa de saída: 0–1 V para ~400°C (considerando cold junction 25°C)
+#define AMP_GAIN        23.0f
 
 // ── Termopar Tipo K ───────────────────────────────────────────────────────────
 #define SEEBECK_K       41.276e-6f  // V/°C
