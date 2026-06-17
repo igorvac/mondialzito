@@ -26,6 +26,11 @@
 #include "kalman.h"
 #include "pid.h"
 
+#define WIFI_SSID     "deviceNetwork"
+#define WIFI_PASSWORD "limaocravo"
+#define SUPABASE_URL  "https://jhbkwdaxvjtrcyzeltlt.supabase.co"
+#define SUPABASE_ANON "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpoYmt3ZGF4dmp0cmN5emVsdGx0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE3MTQ3OTMsImV4cCI6MjA5NzI5MDc5M30.4t8gN_GpsXq4BQLCEPRz7kMhjHyLGYS8qzQSPWvA-CI"  // Settings → API → anon key
+
 // ── Estado global ─────────────────────────────────────────────────────────────
 struct Settings {
     float  setpoint  = 100.0f;

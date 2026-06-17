@@ -3,21 +3,21 @@
 class KalmanFilter {
 public:
     KalmanFilter(float Q = 0.05f, float R = 5.0f, float initial = 25.0f)
-        : _x(initial), _P(1.0f), _Q(Q), _R(R) {}
+        : m_x(initial), m_P(1.0f), m_Q(Q), m_R(R) {}
 
     float update(float measurement) {
-        _P += _Q;
-        float K = _P / (_P + _R);
-        _x   += K * (measurement - _x);
-        _P   *= (1.0f - K);
-        return _x;
+        m_P += m_Q;
+        float K = m_P / (m_P + m_R);
+        m_x   += K * (measurement - m_x);
+        m_P   *= (1.0f - K);
+        return m_x;
     }
 
     void reset(float value = 25.0f) {
-        _x = value;
-        _P = 1.0f;
+        m_x = value;
+        m_P = 1.0f;
     }
 
 private:
-    float _x, _P, _Q, _R;
+    float m_x, m_P, m_Q, m_R;
 };

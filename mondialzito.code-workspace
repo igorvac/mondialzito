@@ -1,0 +1,12 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"name": "boiler_controller",
+			"path": "firmware/boiler_controller"
+		}
+	],
+	"settings": {}
+}
