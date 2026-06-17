@@ -2,15 +2,12 @@
  * Controlador de temperatura para caldeira — NodeMCU v3 (ESP8266Mod)
  *
  * Circuito:
- *   Termopar Tipo K (+) → IN+ do LM358 → saída LM358 → A0
- *   Termopar Tipo K (−) → GND
- *   LM358: ganho = 24× (Rf=23kΩ, Rg=1kΩ), Vcc=3.3V, Vee=GND
+ *   LM35 VCC → 3.3V do NodeMCU
+ *   LM35 GND → GND
+ *   LM35 OUT → A0 (10mV/°C, 0V=0°C, 1V=100°C)
  *   SSR controle: D1 (GPIO5), active HIGH
  *
- * Dependências (Library Manager do Arduino IDE):
- *   - ESP8266WiFi         (incluída na board ESP8266)
- *   - ESP8266HTTPClient   (incluída na board ESP8266)
- *   - WiFiClientSecureBearSSL (incluída na board ESP8266)
+ * Dependências (instaladas automaticamente pelo PlatformIO):
  *   - ArduinoJson 6.x
  *
  * Board: NodeMCU 1.0 (ESP-12E Module), 80MHz, Flash 4MB
@@ -75,11 +72,9 @@ float movingAverage(float value) {
 float readTemperature() {
     int raw     = analogRead(A0);                // 0–1023 (único ADC do ESP8266)
     float v_adc = raw / 1023.0f;                // 0.0–1.0 V
-    float v_tc  = v_adc / AMP_GAIN;             // retira ganho do LM358
-    float t_raw = v_tc / SEEBECK_K + (25.0f + g_settings.cj_offset);
+    // LM35: 10mV/°C → 1V = 100°C; cj_offset reaproveitado como offset de calibração
+    float t_raw = (v_adc * 1000.0f / LM35_MV_PER_DEG) + g_settings.cj_offset;
     float t_avg = movingAverage(t_raw);
-    Serial.printf("[ADC] raw=%d  v_adc=%.4fV  v_tc=%.4fmV\n",
-                  raw, v_adc, v_tc * 1000.0f);
     return g_kalman.update(t_avg);
 }
 

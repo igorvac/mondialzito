@@ -11,14 +11,13 @@
 
 // ── Pinos ─────────────────────────────────────────────────────────────────────
 #define SSR_PIN         5     // D1 no NodeMCU v3 → GPIO5
+// Sensor: LM35 OUT → A0 (único ADC do ESP8266, 0–1V)
 
-// ── Circuito de amplificação (LM358) ─────────────────────────────────────────
-// Ganho = 1 + Rf/Rg = 23  (Rf=22kΩ, Rg=1kΩ)
-// Faixa de saída: 0–1 V para ~400°C (considerando cold junction 25°C)
-#define AMP_GAIN        23.0f
-
-// ── Termopar Tipo K ───────────────────────────────────────────────────────────
-#define SEEBECK_K       41.276e-6f  // V/°C
+// ── Sensor LM35 ───────────────────────────────────────────────────────────────
+// Saída: 10 mV/°C → 0V = 0°C, 1V = 100°C
+// Alimentação: 3.3V (não usar 5V — ADC do ESP8266 aceita no máximo 1V)
+// Limite: leituras acima de 100°C saturam o ADC — use offset negativo se necessário
+#define LM35_MV_PER_DEG 10.0f   // mV por grau Celsius
 
 // ── Tempos ────────────────────────────────────────────────────────────────────
 #define LOOP_INTERVAL_MS      100   // leitura ADC + PID (10 Hz)
