@@ -78,6 +78,8 @@ float readTemperature() {
     float v_tc  = v_adc / AMP_GAIN;             // retira ganho do LM358
     float t_raw = v_tc / SEEBECK_K + (25.0f + g_settings.cj_offset);
     float t_avg = movingAverage(t_raw);
+    Serial.printf("[ADC] raw=%d  v_adc=%.4fV  v_tc=%.4fmV\n",
+                  raw, v_adc, v_tc * 1000.0f);
     return g_kalman.update(t_avg);
 }
 
