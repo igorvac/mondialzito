@@ -73,7 +73,7 @@ float movingAverage(float value) {
 }
 
 float readTemperature() {
-    int raw     = analogRead(ADC_PIN);           // 0–1023
+    int raw     = analogRead(A0);                // 0–1023 (único ADC do ESP8266)
     float v_adc = raw / 1023.0f;                // 0.0–1.0 V
     float v_tc  = v_adc / AMP_GAIN;             // retira ganho do LM358
     float t_raw = v_tc / SEEBECK_K + (25.0f + g_settings.cj_offset);

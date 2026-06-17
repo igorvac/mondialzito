@@ -11,7 +11,6 @@
 
 // ── Pinos ─────────────────────────────────────────────────────────────────────
 #define SSR_PIN         5     // D1 no NodeMCU v3 → GPIO5
-#define ADC_PIN         17    // A0 no ESP8266 = GPIO17 internamente
 
 // ── Circuito de amplificação (LM358) ─────────────────────────────────────────
 // Ganho = 1 + Rf/Rg = 23  (Rf=22kΩ, Rg=1kΩ)
